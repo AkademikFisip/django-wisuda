@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pendaftaran Wisuda</title>
+</head>
+<body>
+    <h1>Selamat Datang di Sistem Pendaftaran Wisuda FISIP</h1>
+    <p>Silakan isi form pendaftaran pada halaman ini.</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Daftar</button>
+    </form>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</body>
+</html>

@@ -1,0 +1,141 @@
+/* Reset */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    background-color: #f9a825;
+    padding: 10px 20px;
+    color: white;
+}
+
+header img {
+    max-height: 50px;
+    margin-right: 15px;
+}
+
+.header-text h1, .header-text h2 {
+    margin: 0;
+    font-weight: bold;
+}
+
+header h1 { font-size: 20px; }
+header h2 { font-size: 16px; }
+
+/* Kontainer Utama */
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* Gambar */
+.image-container {
+    flex: 1;
+    max-width: 50%;
+}
+
+.image-container img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* Form Login */
+.form-container {
+    flex: 1;
+    max-width: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.form-container h3 {
+    color: #f9a825;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 10px 15px; /* Padding horizontal lebih besar */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box; /* Memastikan padding tidak mempengaruhi ukuran */
+}
+
+/* Fokus pada Input */
+.input-container input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Styling untuk Ikon Mata */
+.toggle-password {
+    position: absolute;
+    right: 10px; /* Posisikan ikon ke kanan */
+    top: 50%; /* Pusatkan vertikal */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #777;
+    font-size: 18px;
+}
+
+.toggle-password:hover {
+    color: #007bff;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer */
+footer {
+    background-color: #003366;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: auto;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    .page-container {
+        flex-direction: column;
+    }
+    .image-container, .form-container {
+        max-width: 100%;
+    }
+}

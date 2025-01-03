@@ -1,0 +1,59 @@
+{% load static %}
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Sistem Pendaftaran Wisuda</title>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <script defer src="{% static 'js/main.js' %}"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <img src="{% static 'images/logo_unila.png' %}" alt="Logo Universitas Lampung">
+        <div class="header-text">
+            <h1>Sistem Pendaftaran Wisuda</h1>
+            <h2>Fakultas Ilmu Sosial dan Ilmu Politik</h2>
+        </div>
+    </header>
+
+    <!-- Kontainer Utama -->
+    <div class="page-container">
+        <!-- Gambar Gedung -->
+        <div class="image-container">
+            <img src="{% static 'images/fisip.jpg' %}" alt="Gedung Fakultas">
+        </div>
+
+        <!-- Form Login -->
+        <div class="form-container">
+            <h3>SILAKAN LOGIN</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-container">
+                    <input id="npm" type="text" placeholder="Masukkan NPM" required>
+                </div>
+                <div class="input-container">
+                    <input id="password" type="password" placeholder="Password" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+                </div>
+                <button id="loginBtn" type="submit">LOGIN</button>
+            </form>
+            <p>Belum punya akun? <a href="{% url 'register' %}">Register</a></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        Copyright &copy; 2025 by FISIP Unila All Rights Reserved
+    </footer>
+</body>
+</html>

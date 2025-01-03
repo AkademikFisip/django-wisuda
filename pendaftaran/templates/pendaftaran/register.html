@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pendaftaran - Sistem Pendaftaran Wisuda</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <script defer src="{% static 'js/main.js' %}"></script>
+</head>
+<body>
+    <header>
+        <img src="{% static 'images/logo_unila.png' %}" alt="Logo" class="logo">
+        <div class="title">
+            <h1>Sistem Pendaftaran Wisuda</h1>
+            <h4>Fakultas Ilmu Sosial dan Ilmu Politik</h4>
+        </div>
+    </header>    
+        <main class="main-content">
+            <div class="image-section">
+                <img src="{% static 'images/fisip.jpg' %}" alt="Gambar Kampus" class="kampus-image">
+            </div>
+
+            <div class="form-section">
+                <h3>FORM PENDAFTARAN</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="nama_lengkap">Nama Lengkap:</label>
+                    <input type="text" id="nama_lengkap" name="nama_lengkap" placeholder="Masukkan Nama Lengkap" required><br><br>
+
+                    <label for="npm">NPM:</label>
+                    <input type="text" id="npm" name="npm" placeholder="Masukkan NPM" required><br><br>
+                
+                    <label for="email_aktif">Email Aktif:</label>
+                    <input type="email" id="email_aktif" name="email_aktif" placeholder="Masukkan Email Aktif" required><br><br>
+                
+                    <label for="strata">Strata:</label>
+                    <select id="strata" name="strata" required>
+                        <option value="D3">D3</option>
+                        <option value="S1">S1</option>
+                        <option value="S2">S2</option>
+                        <option value="S3">S3</option>
+                    </select><br><br>
+
+                    <label for="program_studi">Program Studi:</label>
+                    <select id="program_studi" name="program_studi" required>
+                        <option value="">Pilih Program Studi</option>
+                        <option value="sosiologi">Sosiologi</option>
+                        <option value="ilmu_pemerintahan">Ilmu Pemerintahan</option>
+                        <option value="ilmu_komunikasi">Ilmu Komunikasi</option>
+                        <option value="administrasi_negara">Administrasi Negara</option>
+                        <option value="ilmu_administrasi_bisnis">Ilmu Administrasi Bisnis</option>
+                        <option value="hubungan_internasional">Hubungan Internasional</option>
+                        <option value="administrasi_perkantoran">Administrasi Perkantoran</option>
+                        <option value="hubungan_masyarakat">Hubungan Masyarakat</option>
+                        <option value="perpustakaan">Perpustakaan</option>
+                        <option value="magister_ilmu_pemerintahan">Magister Ilmu Pemerintahan</option>
+                        <option value="magister_ilmu_administrasi">Magister Ilmu Administrasi</option>
+                        <option value="magister_ilmu_komunikasi">Magister Ilmu Komunikasi</option>
+                        <option value="studi_pembangunan">Studi Pembangunan</option>
+                    </select><br><br>
+
+                    <label for="periode">Periode Wisuda:</label>
+                    <select id="periode_wisuda" name="periode_wisuda" required>
+                        <option value="">Pilih Periode Wisuda</option>
+                        <option value="periode_I">Periode I</option>
+                        <option value="periode_II">Periode II</option>
+                        <option value="periode_III">Periode III</option>
+                        <option value="periode_IV">Periode IV</option>
+                        <option value="periode_V">Periode V</option>
+                        <option value="periode_VI">Periode VI</option>
+                        <option value="periode_VII">Periode VII</option>
+                    </select><br><br>
+
+                    <button type="submit" class="register-button">DAFTAR</button>
+                </form>
+                <p>Sudah punya akun? <a href="{% url 'login' %}">Login disini</a></p>
+            </div>
+        </main>
+        <footer class="footer">
+            Copyright &copy; 2025 by FISIP Unila All Rights Reserved
+        </footer>
+</body>
+</html>
