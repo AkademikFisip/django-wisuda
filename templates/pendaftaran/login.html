@@ -1,3 +1,4 @@
+
 {% load static %}
 {% if messages %}
     <ul>
@@ -38,22 +39,21 @@
             <h3>SILAKAN LOGIN</h3>
             <form method="post">
                 {% csrf_token %}
-                <div class="input-container">
-                    <input id="npm" type="text" placeholder="Masukkan NPM" required>
+                <div class="form-group">
+                    <label for="username">Nama Lengkap:</label>
+                    <input type="text" id="username" name="username" placeholder="Masukkan Nama Lengkap" required>
                 </div>
-                <div class="input-container">
-                    <input id="password" type="password" placeholder="Password" required>
-                    <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Masukkan Password" required>
                 </div>
-                <button id="loginBtn" type="submit">LOGIN</button>
+                <button type="submit" class="btn-submit">Login</button>
             </form>
-            <p>Belum punya akun? <a href="{% url 'register' %}">Register</a></p>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
-        Copyright &copy; 2025 by FISIP Unila All Rights Reserved
+        <p>&copy; 2025 Universitas Lampung - Fakultas Ilmu Sosial dan Ilmu Politik</p>
     </footer>
 </body>
 </html>

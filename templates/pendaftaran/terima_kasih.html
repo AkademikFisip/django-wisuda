@@ -1,0 +1,25 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terima Kasih - Sistem Pendaftaran Wisuda</title>
+    <link rel="stylesheet" href="{% static 'css/terima_kasih.css' %}">
+</head>
+<body>
+    <header>
+        <img src="{% static 'images/logo_unila.png' %}" alt="Logo Universitas Lampung">
+        <h1>Terima Kasih</h1>
+        <h2>Proses pendaftaran Anda berhasil</h2>
+    </header>
+    <main>
+        <p>Terima kasih telah mendaftar wisuda. Silakan cek email Anda untuk informasi lebih lanjut.</p>
+        <a href="{% url 'pendaftaran:login' %}" class="btn-login">Kembali ke Login</a>
+    </main>
+    <footer>
+        <p>&copy; 2023 Universitas Lampung - Fakultas Ilmu Sosial dan Ilmu Politik</p>
+    </footer>
+</body>
+</html>

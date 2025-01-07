@@ -1,0 +1,48 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pendaftaran - Sistem Pendaftaran Wisuda</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <script defer src="{% static 'js/main.js' %}"></script>
+</head>
+<body>
+    <header>
+        <img src="{% static 'images/logo_unila.png' %}" alt="Logo Universitas Lampung">
+        <div class="header-text">
+            <h1>Sistem Pendaftaran Wisuda</h1>
+            <h2>Fakultas Ilmu Sosial dan Ilmu Politik</h2>
+        </div>
+    </header>   
+    <main class="main-content">
+        <div class="image-section">
+            <img src="{% static 'images/fisip.jpg' %}" alt="Gambar Kampus" class="kampus-image">
+        </div>
+
+        <div class="form-section">
+            <h3>FORM PENDAFTARAN</h3>
+            <form method="post">
+                {% csrf_token %}
+                <label for="nama_lengkap">Nama Lengkap:</label>
+                <input type="text" id="username" name="username" placeholder="Masukkan Nama Lengkap" required>
+            
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Masukkan Email" required>
+            
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Masukkan Password" required>
+            
+                <button type="submit" class="btn-submit">Daftar</button>
+            </form>
+            
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Universitas Lampung - Fakultas Ilmu Sosial dan Ilmu Politik</p>
+    </footer>
+</body>
+</html>
