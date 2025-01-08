@@ -51,16 +51,13 @@
                         <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="mb-3">
-                                {{ form.jenis_berkas.label_tag }}
                                 {{ form.jenis_berkas|add_class:"form-select" }}
                             </div>
                             <div class="mb-3">
-                                {{ form.file.label_tag }}
                                 {{ form.file|add_class:"form-control" }}
-                                <small class="text-muted">Max size: 5 MB. Allowed types: jpg, png, pdf.</small>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Upload</button>
-                        </form>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>                                               
                     </div>
                 </div>
             </div>

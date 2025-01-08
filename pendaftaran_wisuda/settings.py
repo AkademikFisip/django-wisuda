@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pendaftaran',
+    'pendaftaran',  # Aplikasi Anda
 ]
 
 MIDDLEWARE = [
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'pendaftaran_wisuda.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'pendaftaran/templates/pendaftaran/static'],
+        'DIRS': [BASE_DIR / 'pendaftaran/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

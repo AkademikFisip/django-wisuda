@@ -22,9 +22,28 @@ def home(request):
     
 def register(request):
     if request.method == 'POST':
-        # Logic untuk memproses data form
-        pass
-    return render(request, 'pendaftaran/register.html')    
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        # Validasi input
+        if not username or not email or not password:
+            messages.error(request, 'Semua field wajib diisi.')
+            return redirect('pendaftaran:register')
+
+        # Cek apakah email sudah digunakan
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'Email sudah digunakan.')
+            return redirect('pendaftaran:register')
+
+        # Buat pengguna baru
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user.save()
+
+        messages.success(request, 'Akun berhasil dibuat. Silakan login.')
+        return redirect('pendaftaran:login')
+
+    return render(request, 'pendaftaran/register.html')
 
 def login_view(request):
     if request.method == 'POST':
@@ -49,7 +68,7 @@ def dashboard(request):
             return HttpResponseBadRequest("Jenis berkas atau file tidak valid.")
 
         # Cek apakah berkas sudah ada atau buat baru
-        berkas, created = Berkas.objects.get_or_create(pendaftar=request.user, jenis_berkas=jenis_berkas)
+        berkas, created = Berkas.objects.get_or_create(user=request.user, jenis_berkas=jenis_berkas)
         berkas.file = file
         berkas.status = 'Menunggu Verifikasi'
         berkas.save()
@@ -57,9 +76,12 @@ def dashboard(request):
         # Berikan feedback ke pengguna
         return redirect('dashboard')
 
+    # Query data mahasiswa
+    mahasiswa = User.objects.get(username=request.user.username)
+
     # Ambil semua berkas yang dimiliki pengguna
-    berkas_list = Berkas.objects.filter(pendaftar=request.user)
-    return render(request, 'pendaftaran/dashboard.html', {'berkas_list': berkas_list})
+    berkas_list = Berkas.objects.filter(user=request.user)
+    return render(request, 'pendaftaran/dashboard.html', {'mahasiswa': mahasiswa, 'berkas_list': berkas_list})
 
 from django.shortcuts import redirect
 from django.contrib.auth import logout

@@ -7,16 +7,17 @@ from .views import home, dashboard
 # Model Tests
 class PendaftarModelTest(TestCase):
     def test_create_pendaftar(self):
+        # Gunakan field yang sesuai dengan model Pendaftar
         pendaftar = Pendaftar.objects.create(
-            nama_lengkap="John Doe",
-            npm="123456789",
-            email="johndoe@example.com",
-            password="hashedpassword",
-            strata="S1",
-            program_studi="ilmu_komunikasi",
-            periode_wisuda="periode_I"
+            nama="John Doe",  # Ganti nama_lengkap menjadi nama
+            npm="123456789",  # Pastikan sesuai dengan tipe data
+            email="johndoe@example.com",  # Gunakan email field
+            strata="S1",  # Pilihan strata yang valid
+            program_studi="ilmu_komunikasi",  # Pilihan program_studi yang valid
+            periode_wisuda="periode_I"  # Pilihan periode_wisuda yang valid
         )
-        self.assertEqual(pendaftar.nama_lengkap, "John Doe")
+        # Uji apakah data berhasil disimpan dengan benar
+        self.assertEqual(pendaftar.nama, "John Doe")
         self.assertEqual(pendaftar.npm, "123456789")
 
 # View Tests

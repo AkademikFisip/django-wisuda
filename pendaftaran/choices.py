@@ -22,6 +22,13 @@ PROGRAM_STUDI_CHOICES = [
     ('administrasi_negara', 'Administrasi Negara'), 
     ('ilmu_administrasi_bisnis', 'Ilmu Administrasi Bisnis'), 
     ('hubungan_internasional', 'Hubungan Internasional'), 
+    ('administrasi_perkantoran', 'Administrasi Perkantoran'), 
+    ('hubungan_masyarakat', 'Hubungan Masyarakat'),
+    ('perpustakaan', 'Perpustakaan'),
+    ('magister_ilmu_pemerintahan', 'Magister Ilmu Pemerintahan'),
+    ('magister_ilmu_komunikasi', 'Magister Ilmu Komunikasi'),
+    ('magister_ilmu_administrasi', 'Magister Ilmu Administrasi'),
+    ('studi_pembangunan', 'Studi Pembangunan'),
 ]
 
 PERIODE_WISUDA_CHOICES = [
@@ -29,6 +36,9 @@ PERIODE_WISUDA_CHOICES = [
     ('periode_II', 'Periode II'),
     ('periode_III', 'Periode III'),
     ('periode_IV', 'Periode IV'),
+    ('periode_V', 'Periode V'),
+    ('periode_VI', 'Periode VI'),
+    ('periode_VII', 'Periode VII'),
 ]
 
 STRATA_CHOICES = [
