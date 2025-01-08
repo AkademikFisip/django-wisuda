@@ -3,13 +3,16 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9; /* Latar belakang yang soft */
+    background-color: #f5f5f5;
 }
 
 .container {
-    margin: 0 auto;
-    max-width: 1200px; /* Lebar maksimal konten */
     padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Aturan header */
@@ -48,6 +51,22 @@ header h2 { font-size: 16px; }
     flex: 2;
 }
 
+img.img-fluid {
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Gambar */
+.image-container {
+    flex: 1;
+    max-width: 50%;
+}
+
+.image-container img {
+    width: 100%;
+    border-radius: 8px;
+}
+
 .kampus-image {
     width: 100%;
     height: auto;
@@ -63,6 +82,19 @@ header h2 { font-size: 16px; }
     margin-left: 20px;
 }
 
+.form-label {
+    margin-bottom: 5px;
+}
+
+.form-control, .form-select {
+    margin-bottom: 15px;
+}
+
+.form-select {
+    border-radius: 8px; /* Buat sudut elemen lebih halus */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan lembut */
+}
+
 h3 {
     background-color: #f9a825;
     color: white;
@@ -72,11 +104,35 @@ h3 {
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: block;
+    margin: 0 auto;
+    padding: 15px;
 }
 
+form input, form select {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+form label {
+    margin-bottom: 5px;
+    display: block;
+}
+  
+button {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transition: 0.3s ease;
+}
+  
 label {
     font-weight: bold;
     margin-top: 10px;
@@ -117,6 +173,20 @@ input, select {
     justify-content: center;
     align-items: center;
     padding: 20px;
+}
+
+.btn {
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background-color: #ff8800;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #cc6e00;
 }
 
 .footer {

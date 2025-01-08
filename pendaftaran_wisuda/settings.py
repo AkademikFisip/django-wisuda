@@ -124,8 +124,6 @@ STATICFILES_DIRS = [BASE_DIR / 'pendaftaran/static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS = [BASE_DIR / 'pendaftaran/static']
-
 LOGIN_URL = '/login/'  # URL untuk login
 LOGIN_REDIRECT_URL = '/dashboard/'  # URL setelah berhasil login
 LOGOUT_REDIRECT_URL = '/login/'  # URL setelah logout
