@@ -48,14 +48,14 @@ def register(request):
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        username = request.POST['username']
+        password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('pendaftaran:dashboard')  # Ubah sesuai dengan nama URL dashboard Anda
+            return redirect('pendaftaran:dashboard')  # Redirect ke dashboard
         else:
-            messages.error(request, 'Username atau password salah.')
+            return render(request, 'pendaftaran/login.html', {'error': 'Username atau password salah.'})
     return render(request, 'pendaftaran/login.html')
 
 @login_required

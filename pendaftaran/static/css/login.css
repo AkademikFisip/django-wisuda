@@ -13,7 +13,7 @@ header {
     display: flex;
     align-items: center;
     background-color: #f9a825;
-    padding: 10px 20px;
+    padding: 5px 7px;
     color: white;
 }
 
@@ -33,32 +33,45 @@ header h2 { font-size: 16px; }
 /* Kontainer Utama */
 .page-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    gap: 20px;
+    flex-direction: column;
+    min-height: 100vh; /* Pastikan tinggi penuh layar */
 }
 
 /* Gambar */
+.main-content {
+    display: flex;
+    align-items: center; /* Sejajarkan vertikal */
+    justify-content: space-between; /* Pusatkan konten horizontal dengan jarak */
+    gap: 40px; /* Jarak antara gambar dan form */
+    padding: 20px;
+    margin: 0 auto; /* Pastikan konten berada di tengah */
+    max-width: 90%; /* Lebar maksimal konten keseluruhan */
+}
+
+.content {
+    flex: 1; /* Isi utama halaman */
+}
+
 .image-container {
-    flex: 1;
-    max-width: 50%;
+    flex: 1; /* Proporsi gambar */
+    max-width: 55%; /* Sesuaikan lebar gambar */
 }
 
 .image-container img {
     width: 100%;
-    border-radius: 8px;
+    height: auto;
+    border-radius: 8px; /* Sudut gambar membulat */
 }
 
 /* Form Login */
 .form-container {
-    flex: 1;
-    max-width: 400px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    flex: 1; /* Proporsi form */
+    max-width: 40%; /* Lebar form */
+    background-color: white; /* Latar belakang putih */
+    padding: 30px; /* Jarak dalam form */
+    border-radius: 8px; /* Membulatkan sudut */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+    border: 1px solid #ddd; /* Tambahkan border */
 }
 
 .form-container h3 {
@@ -78,7 +91,7 @@ header h2 { font-size: 16px; }
     padding: 10px 15px; /* Padding horizontal lebih besar */
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 16px;
     transition: all 0.3s ease;
     box-sizing: border-box; /* Memastikan padding tidak mempengaruhi ukuran */
 }
@@ -121,21 +134,24 @@ button:hover {
 }
 
 /* Footer */
-footer {
-    background-color: #003366;
-    color: white;
+.footer {
     text-align: center;
-    padding: 10px;
+    background-color: #f9a825;
+    color: white;
+    padding: 10px 0; /* Jarak atas dan bawah lebih kecil */
     font-size: 14px;
-    margin-top: auto;
+    margin-top: auto; /* Pastikan footer berada di bawah */
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Opsional bayangan */
 }
 
 /* Responsif */
 @media (max-width: 768px) {
-    .page-container {
+    .main-content {
         flex-direction: column;
+        align-items: center;
     }
     .image-container, .form-container {
-        max-width: 100%;
+        max-width: 90%; /* Lebar penuh di layar kecil */
     }
 }
+
