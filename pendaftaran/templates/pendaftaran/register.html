@@ -28,9 +28,8 @@
     </header>   
     <main class="main-content">
         <div class="image-section">
-            <img src="{% static 'images/fisip.jpg' %}" alt="Gambar Kampus" class="kampus-image">
+            <img src="{% static 'images/fisip.jpg' %}" alt="Gambar FISIP" class="kampus-image">
         </div>
-
         <div class="form-section">
             <h3>FORM PENDAFTARAN</h3>
             <form method="post">
@@ -45,12 +44,12 @@
                 <input type="password" id="password" name="password" placeholder="Masukkan Password" required>
             
                 <button type="submit" class="btn-submit">Daftar</button>
+                <a href="{% url 'pendaftaran:login' %}" class="btn-login">Silakan Login jika sudah daftar</a>
             </form>
-            
         </div>
     </main>
 
-    <footer>
+    <footer class="footer">
         <p>&copy; 2025 Universitas Lampung - Fakultas Ilmu Sosial dan Ilmu Politik</p>
     </footer>
 </body>

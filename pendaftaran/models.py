@@ -27,6 +27,7 @@ def validate_file_size(value):
         raise ValidationError('Ukuran file tidak boleh lebih dari 5 MB.')
        
 class Pendaftar(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     nama = models.CharField(max_length=100)
     npm = models.CharField(
         max_length=10,
@@ -40,8 +41,8 @@ class Pendaftar(models.Model):
     )
     email = models.EmailField()
     strata = models.CharField(max_length=50, choices=STRATA_CHOICES)
-    program_studi = models.CharField(max_length=100, choices=PROGRAM_STUDI_CHOICES)
-    periode_wisuda = models.CharField(max_length=100, choices=PERIODE_WISUDA_CHOICES)
+    program_studi = models.CharField(max_length=50, choices=PROGRAM_STUDI_CHOICES)
+    periode_wisuda = models.CharField(max_length=50, choices=PERIODE_WISUDA_CHOICES)
     password = models.CharField(
         max_length=128,
         validators=[validate_password]  # Validator custom digunakan di sini
@@ -72,5 +73,5 @@ class Mahasiswa(models.Model):
     )
     email_aktif = models.EmailField()
     strata = models.CharField(max_length=50, choices=STRATA_CHOICES)
-    program_studi = models.CharField(max_length=100, choices=PROGRAM_STUDI_CHOICES)
-    periode_wisuda = models.CharField(max_length=100, choices=PERIODE_WISUDA_CHOICES)
+    program_studi = models.CharField(max_length=50, choices=PROGRAM_STUDI_CHOICES)
+    periode_wisuda = models.CharField(max_length=50, choices=PERIODE_WISUDA_CHOICES)

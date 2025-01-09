@@ -1,5 +1,4 @@
 {% load static %}
-{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,11 +10,11 @@
 </head>
 <body>
     <!-- Header -->
-    <header class="bg-warning py-3">
-        <div class="container text-center">
-            <img src="{% static 'images/logo_unila.png' %}" alt="Logo Universitas Lampung" width="100">
-            <h1 class="mt-2 mb-0">Sistem Pendaftaran Wisuda</h1>
-            <p class="mb-0">Fakultas Ilmu Sosial dan Ilmu Politik</p>
+    <header>
+        <img src="{% static 'images/logo_unila.png' %}" alt="Logo Universitas Lampung">
+        <div class="header-text">
+            <h1>Sistem Pendaftaran Wisuda</h1>
+            <h2>Fakultas Ilmu Sosial dan Ilmu Politik</h2>
         </div>
     </header>
 
@@ -24,15 +23,12 @@
         <h2 class="text-center mb-4">Selamat Datang, {{ mahasiswa.nama_lengkap }}</h2>
         <hr>
 
-        <div class="row">
-            <!-- Informasi Mahasiswa -->
-            <div class="col-lg-6 mb-4">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white">
-                        Informasi Mahasiswa
-                    </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">Informasi Mahasiswa</div>
                     <div class="card-body">
-                        <p><strong>Nama:</strong> {{ mahasiswa.nama_lengkap }}</p>
+                        <p><strong>Nama:</strong> {{ mahasiswa.nama }}</p>
                         <p><strong>NPM:</strong> {{ mahasiswa.npm }}</p>
                         <p><strong>Email:</strong> {{ mahasiswa.email }}</p>
                         <p><strong>Program Studi:</strong> {{ mahasiswa.program_studi }}</p>
@@ -40,29 +36,45 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Form Upload Berkas -->
-            <div class="col-lg-6 mb-4">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-success text-white">
-                        Upload Berkas
-                    </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">Upload Berkas</div>
                     <div class="card-body">
                         <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="mb-3">
-                                {{ form.jenis_berkas|add_class:"form-select" }}
+                                <label for="jenis_berkas" class="form-label">Jenis Berkas</label>
+                                <select name="jenis_berkas" id="jenis_berkas" class="form-select">
+                                    {% for choice in form.jenis_berkas.field.choices %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                             <div class="mb-3">
-                                {{ form.file|add_class:"form-control" }}
+                                <label for="file" class="form-label">File</label>
+                                <input type="file" name="file" id="file" class="form-control">
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>                                               
+                            <button type="submit" class="btn btn-primary w-100">Upload</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-info text-white">Daftar Berkas yang Harus Diupload</div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for jenis in JENIS_BERKAS_CHOICES %}
+                                <li class="list-group-item">{{ jenis.1 }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>        
 
     <!-- Footer -->
     <footer class="text-center mt-4 py-3 bg-dark text-white">

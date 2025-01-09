@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.http import HttpResponseBadRequest
 from .forms import UploadBerkasForm, PendaftaranForm
 from .models import Berkas, Pendaftar
+from .choices import JENIS_BERKAS_CHOICES
 
 def home(request):
     if request.method == 'POST':
@@ -59,32 +60,15 @@ def login_view(request):
 
 @login_required
 def dashboard(request):
-    if request.method == 'POST':
-        jenis_berkas = request.POST.get('jenis_berkas')
-        file = request.FILES.get('file')
+    mahasiswa = Pendaftar.objects.filter(user=request.user).first()
+    form = UploadBerkasForm()
 
-        # Validasi file sebelum menyimpan
-        if not file or not jenis_berkas:
-            return HttpResponseBadRequest("Jenis berkas atau file tidak valid.")
-
-        # Cek apakah berkas sudah ada atau buat baru
-        berkas, created = Berkas.objects.get_or_create(user=request.user, jenis_berkas=jenis_berkas)
-        berkas.file = file
-        berkas.status = 'Menunggu Verifikasi'
-        berkas.save()
-
-        # Berikan feedback ke pengguna
-        return redirect('dashboard')
-
-    # Query data mahasiswa
-    mahasiswa = User.objects.get(username=request.user.username)
-
-    # Ambil semua berkas yang dimiliki pengguna
-    berkas_list = Berkas.objects.filter(user=request.user)
-    return render(request, 'pendaftaran/dashboard.html', {'mahasiswa': mahasiswa, 'berkas_list': berkas_list})
-
-from django.shortcuts import redirect
-from django.contrib.auth import logout
+    context = {
+        'mahasiswa': mahasiswa,
+        'form': form,
+        'JENIS_BERKAS_CHOICES': JENIS_BERKAS_CHOICES,
+    }
+    return render(request, 'pendaftaran/dashboard.html', context)
 
 def logout_view(request):
     logout(request)
