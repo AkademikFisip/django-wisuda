@@ -35,6 +35,41 @@ body {
     border-color: #d6e9c6;
 }
 
+/* popout */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 2px solid #f9a825;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1000;
+    text-align: center;
+    width: 80%; /* Sesuaikan ukuran */
+    max-width: 400px;
+}
+
+.popup.hidden {
+    display: none; /* Popup tidak terlihat secara default */
+}
+
+.popup button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup button:hover {
+    background-color: #0056b3;
+}
+
 /* Aturan header */
 header {
     display: flex;
@@ -255,12 +290,16 @@ input, select {
 
 .footer {
     text-align: center;
-    background-color: #f9a825;
+    background-color: #003366;
     color: white;
     padding: 10px 0; /* Padding vertikal */
     font-size: 14px;
     margin-top: auto; /* Pastikan footer berada di bawah */
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+    display: none; /* Sembunyikan daftar pesan */
 }
 
 @media (max-width: 768px) {

@@ -6,17 +6,25 @@
 }
 
 body {
-    margin-top: 100px; /* Sesuaikan dengan tinggi header */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
 }
 
 /* Header */
 header {
     display: flex;
-    align-items: center;
+    justify-content: space-between; /* Posisi kiri-kanan */
+    align-items: center; /* Sejajarkan vertikal */
+    padding: 10px 20px;
     background-color: #f9a825;
-    padding: 5px 5px;
     color: white;
-    position:static
+    position: relative;
+}
+
+.header-text {
+    flex: 1; /* Isi ruang di tengah */
 }
 
 header img {
@@ -31,6 +39,12 @@ header img {
 
 header h1 { font-size: 20px; }
 header h2 { font-size: 16px; }
+
+.header-logout {
+    position: absolute; /* Posisikan secara absolut */
+    right: 20px; /* Jarak dari tepi kanan */
+    top: 15px; /* Jarak dari atas */
+}
 
 /* Menu */
 nav.menu {
@@ -78,6 +92,10 @@ nav.menu ul li a:hover {
 /* Main Content */
 main {
     margin-bottom: 50px; /* Sesuaikan dengan tinggi footer */
+}
+
+.page-container {
+    flex: 1;
 }
 
 .main-content {
@@ -214,6 +232,26 @@ main {
 }
 
 /* Tombol Upload dan Edit */
+.btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btn-danger {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333; /* Warna merah lebih gelap saat hover */
+}
+
 .btn-upload, .btn-edit {
     background-color: #f6a500;
     color: white;
@@ -235,13 +273,13 @@ main {
 }
 
 /* Footer */
-footer {
-    background-color: #003366;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    font-size: 14px;
-    margin-top: auto;
+.footer {
+    position: relative; /* Tetap di bawah konten */
+    width: 100%; /* Selebar layar */
+    background-color: #003366; /* Warna latar belakang */
+    color: white; /* Warna teks */
+    padding: 10px 0; /* Jarak atas dan bawah */
+    text-align: center; /* Teks rata tengah */
 }
 
 .file-grid {
@@ -305,4 +343,66 @@ footer {
     margin-bottom: 5px;
     padding: 10px;
     background-color: #f8f9fa;
+}
+
+.card-body p {
+    font-size: 16px;
+    margin-bottom: 8px;
+    line-height: 1.5; /* Spasi antar baris */
+}
+
+.card-body p strong {
+    color: #333; /* Warna teks judul */
+}
+
+.card-body {
+    background-color: #f9f9f9; /* Latar belakang card */
+    border-radius: 8px; /* Membulatkan sudut */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+}
+
+.card {
+    max-width: 600px; /* Batasi lebar card */
+    margin: 20px auto; /* Posisikan card di tengah */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+}
+
+.card-header {
+    font-size: 16px; /* Perkecil font header */
+    text-transform: uppercase;
+    padding: 8px 12px;
+}
+
+.card-body {
+    padding: 15px; /* Kurangi padding body card */
+    background-color: #f9f9f9;
+}
+
+.btn-warning {
+    font-size: 14px; /* Perkecil ukuran font tombol */
+    padding: 8px 15px; /* Kurangi padding tombol */
+    border-radius: 5px;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.table th, .table td {
+    padding: 5px 10px; /* Kurangi padding untuk membuat tabel lebih kompak */
+    font-size: 14px; /* Perkecil ukuran font */
+}
+
+.table {
+    margin: 10px 0; /* Kurangi margin tabel */
+}
+
+.table-striped tr:nth-child(even) {
+    background-color: #f9f9f9; /* Warna latar selang-seling */
+}
+
+.text-center {
+    text-align: center;
 }

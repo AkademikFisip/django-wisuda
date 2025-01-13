@@ -27,8 +27,8 @@ def validate_file_size(value):
         raise ValidationError('Ukuran file tidak boleh lebih dari 5 MB.')
        
 class Pendaftar(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    nama = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nama_lengkap = models.CharField(max_length=100)
     npm = models.CharField(
         max_length=10,
         validators=[
@@ -39,17 +39,24 @@ class Pendaftar(models.Model):
             )
         ]
     )
-    email = models.EmailField()
+    email_aktif = models.EmailField()
+    nomor_wa = models.CharField(
+        max_length=15,
+        validators=[
+            RegexValidator(
+                regex=r'^\+?\d{10,15}$',
+                message='Nomor WA harus berupa angka, minimal 10 digit.'
+            )
+        ],
+        default='',  # Tambahkan default value kosong
+    )
     strata = models.CharField(max_length=50, choices=STRATA_CHOICES)
     program_studi = models.CharField(max_length=50, choices=PROGRAM_STUDI_CHOICES)
     periode_wisuda = models.CharField(max_length=50, choices=PERIODE_WISUDA_CHOICES)
-    password = models.CharField(
-        max_length=128,
-        validators=[validate_password]  # Validator custom digunakan di sini
-    )
 
     def __str__(self):
-        return self.nama
+        return self.nama_lengkap
+
 
 class Berkas(models.Model):
     jenis_berkas = models.CharField(max_length=100, choices=JENIS_BERKAS_CHOICES)

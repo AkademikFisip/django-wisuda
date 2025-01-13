@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="{% static 'css/register.css' %}">
     <script defer src="{% static 'js/main.js' %}"></script>
 </head>
+    <div id="popup-message" class="popup hidden">
+        <p id="popup-text">Akun berhasil dibuat. Anda dapat login sekarang.</p>
+        <button id="close-popup" onclick="closePopup()">Tutup</button>
+    </div>
 <body>
     <header>
         <img src="{% static 'images/logo_unila.png' %}" alt="Logo Universitas Lampung">
@@ -48,7 +52,33 @@
             </form>
         </div>
     </main>
-
+        <!-- Script -->
+        <script>
+            function showPopup(message) {
+                const popup = document.getElementById('popup-message');
+                const popupText = document.getElementById('popup-text');
+                popupText.textContent = message; // Masukkan pesan ke popup
+                popup.classList.remove('hidden'); // Tampilkan popup
+            }
+    
+            function closePopup() {
+                const popup = document.getElementById('popup-message');
+                popup.classList.add('hidden'); // Sembunyikan popup
+            }
+    
+            document.addEventListener('DOMContentLoaded', () => {
+                console.log('DOM Loaded');
+                {% if messages %}
+                    console.log('Messages found:', {{ messages|safe }});
+                    {% for message in messages %}
+                        console.log('Showing message:', "{{ message|escapejs|safe }}");
+                        showPopup("{{ message|escapejs|safe }}");
+                    {% endfor %}
+                {% else %}
+                    console.log('No messages found');
+                {% endif %}
+            });
+        </script>
     <footer class="footer">
         <p>&copy; 2025 Universitas Lampung - Fakultas Ilmu Sosial dan Ilmu Politik</p>
     </footer>

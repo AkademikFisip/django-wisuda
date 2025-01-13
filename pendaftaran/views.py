@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.http import HttpResponseBadRequest
-from .forms import UploadBerkasForm, PendaftaranForm
+from django.http import HttpResponseBadRequest, JsonResponse
+from .forms import UploadBerkasForm, PendaftaranForm, PendaftarForm
 from .models import Berkas, Pendaftar
 from .choices import JENIS_BERKAS_CHOICES
 
@@ -46,6 +46,16 @@ def register(request):
 
     return render(request, 'pendaftaran/register.html')
 
+def register_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'Email sudah digunakan.')
+        else:
+            messages.success(request, 'Akun berhasil dibuat.')
+            return redirect('pendaftaran:login')
+    return render(request, 'pendaftaran/register.html')
+    
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -61,14 +71,33 @@ def login_view(request):
 @login_required
 def dashboard(request):
     mahasiswa = Pendaftar.objects.filter(user=request.user).first()
-    form = UploadBerkasForm()
+    pendaftar_form = PendaftarForm(instance=mahasiswa)  # Gunakan PendaftarForm
 
     context = {
         'mahasiswa': mahasiswa,
-        'form': form,
+        'pendaftar_form': pendaftar_form,  # Pastikan form ini dikirimkan
         'JENIS_BERKAS_CHOICES': JENIS_BERKAS_CHOICES,
     }
     return render(request, 'pendaftaran/dashboard.html', context)
+
+@login_required
+def edit_data_mahasiswa(request):
+    mahasiswa = Pendaftar.objects.filter(user=request.user).first()
+    
+    if not mahasiswa:
+        mahasiswa = Pendaftar(user=request.user)  # Buat instance baru jika belum ada
+
+    if request.method == 'POST':
+        form = PendaftarForm(request.POST, instance=mahasiswa)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = PendaftarForm(instance=mahasiswa)
+
+    return render(request, 'pendaftaran/edit_data_mahasiswa.html', {'form': form})
 
 def logout_view(request):
     logout(request)

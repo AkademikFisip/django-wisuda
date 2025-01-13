@@ -136,7 +136,7 @@ button:hover {
 /* Footer */
 .footer {
     text-align: center;
-    background-color: #f9a825;
+    background-color: #003366;
     color: white;
     padding: 10px 0; /* Jarak atas dan bawah lebih kecil */
     font-size: 14px;
@@ -154,4 +154,3 @@ button:hover {
         max-width: 90%; /* Lebar penuh di layar kecil */
     }
 }
-

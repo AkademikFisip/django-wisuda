@@ -10,12 +10,16 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <img src="{% static 'images/logo_unila.png' %}" alt="Logo Universitas Lampung">
+    <header style="position: relative;">
+        <div>
+            <img src="{% static 'images/logo_unila.png' %}" alt="Logo Universitas Lampung">
+        </div>
         <div class="header-text">
             <h1>Sistem Pendaftaran Wisuda</h1>
             <h2>Fakultas Ilmu Sosial dan Ilmu Politik</h2>
         </div>
+        <!-- Tombol Logout -->
+        <a href="{% url 'pendaftaran:logout' %}" class="btn btn-danger header-logout">Logout</a>
     </header>
 
     <!-- Konten Utama -->
@@ -24,17 +28,67 @@
         <hr>
 
         <div class="row mt-4">
+        <!-- Modal -->
+        <div class="modal fade" id="editDataModal" tabindex="-1" aria-labelledby="editDataModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editDataModalLabel">Edit Data Mahasiswa</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" id="editDataForm">
+                            {% csrf_token %}
+                            {{ pendaftar_form.as_p }}
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header bg-primary text-white">Informasi Mahasiswa</div>
                     <div class="card-body">
-                        <p><strong>Nama:</strong> {{ mahasiswa.nama }}</p>
-                        <p><strong>NPM:</strong> {{ mahasiswa.npm }}</p>
-                        <p><strong>Email:</strong> {{ mahasiswa.email }}</p>
-                        <p><strong>Program Studi:</strong> {{ mahasiswa.program_studi }}</p>
-                        <p><strong>Status Pendaftaran:</strong> {{ mahasiswa.status_pendaftaran }}</p>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Nama Lengkap</th>
+                                <td>{{ mahasiswa.nama_lengkap }}</td>
+                            </tr>
+                            <tr>
+                                <th>NPM</th>
+                                <td>{{ mahasiswa.npm }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email Aktif</th>
+                                <td>{{ mahasiswa.email_aktif }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nomor WA</th>
+                                <td>{{ mahasiswa.nomor_wa }}</td>
+                            </tr>
+                            <tr>
+                                <th>Strata</th>
+                                <td>{{ mahasiswa.strata }}</td>
+                            </tr>
+                            <tr>
+                                <th>Program Studi</th>
+                                <td>{{ mahasiswa.get_program_studi_display }}</td>
+                            </tr>
+                            <tr>
+                                <th>Periode Wisuda</th>
+                                <td>{{ mahasiswa.get_periode_wisuda_display }}</td>
+                            </tr>
+                        </table>
+                        <div class="text-center mt-2">
+                            <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editDataModal">
+                                Edit Data
+                            </a>                            
+                        </div>
                     </div>
-                </div>
+                </div>                                             
             </div>
             <div class="col-md-6">
                 <div class="card">
@@ -74,14 +128,15 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
+    </div>            
+</body>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2025 Universitas Lampung - Fakultas Ilmu Sosial dan Ilmu Politik</p>
-    </footer>
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2025 Universitas Lampung - Fakultas Ilmu Sosial dan Ilmu Politik</p>
+</footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
 </html>

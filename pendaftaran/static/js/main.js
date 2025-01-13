@@ -10,6 +10,33 @@ function togglePasswordVisibility() {
     }
 }
 
+document.getElementById('editDataForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const form = this;
+    const url = "{% url 'pendaftaran:edit_data_mahasiswa' %}";  // Pastikan URL benar
+    const formData = new FormData(form);
+
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editDataModal'));
+            modal.hide();  // Tutup modal
+            location.reload();  // Reload halaman untuk menampilkan perubahan
+        } else {
+            alert('Gagal menyimpan data. Periksa input Anda.');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
 document.getElementById('loginBtn').addEventListener('click', function (e) {
     const npmInput = document.getElementById('npm');
     const passwordInput = document.getElementById('password');
@@ -142,3 +169,4 @@ console.log(previewElement); // Debugging
 console.log("File Name: ", file.name);
 console.log("File Type: ", file.type);
 console.log("Preview Element: ", previewElement);
+
