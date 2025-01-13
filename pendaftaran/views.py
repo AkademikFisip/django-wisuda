@@ -71,14 +71,29 @@ def login_view(request):
 @login_required
 def dashboard(request):
     mahasiswa = Pendaftar.objects.filter(user=request.user).first()
-    pendaftar_form = PendaftarForm(instance=mahasiswa)  # Gunakan PendaftarForm
+    pendaftar_form = PendaftarForm(instance=mahasiswa)
+    upload_berkas_form = UploadBerkasForm()  # Form untuk upload berkas
 
     context = {
         'mahasiswa': mahasiswa,
-        'pendaftar_form': pendaftar_form,  # Pastikan form ini dikirimkan
+        'pendaftar_form': pendaftar_form,
+        'upload_berkas_form': upload_berkas_form,  # Tambahkan form upload berkas
         'JENIS_BERKAS_CHOICES': JENIS_BERKAS_CHOICES,
     }
     return render(request, 'pendaftaran/dashboard.html', context)
+
+@login_required
+def upload_berkas(request):
+    if request.method == 'POST':
+        form = UploadBerkasForm(request.POST, request.FILES)
+        if form.is_valid():
+            upload = form.save(commit=False)
+            upload.user = request.user
+            upload.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
 
 @login_required
 def edit_data_mahasiswa(request):

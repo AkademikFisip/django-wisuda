@@ -1,5 +1,5 @@
 from django import forms
-from .models import Mahasiswa, Pendaftar
+from .models import Mahasiswa, Pendaftar, Berkas
 from .choices import JENIS_BERKAS_CHOICES
 
 class PendaftaranForm(forms.ModelForm):
@@ -7,12 +7,14 @@ class PendaftaranForm(forms.ModelForm):
         model = Mahasiswa
         fields = ['nama_lengkap', 'npm', 'email_aktif', 'strata', 'program_studi', 'periode_wisuda']
 
-class UploadBerkasForm(forms.Form):
-    jenis_berkas = forms.ChoiceField(
-        choices=JENIS_BERKAS_CHOICES,
-        widget=forms.Select(attrs={'class': 'form-select'})
-    )
-    file = forms.FileField(widget=forms.ClearableFileInput(attrs={'class': 'form-control'}))
+class UploadBerkasForm(forms.ModelForm):
+    class Meta:
+        model = Berkas
+        fields = ['jenis_berkas', 'file']
+        widgets = {
+            'jenis_berkas': forms.Select(attrs={'class': 'form-select'}),
+            'file': forms.FileInput(attrs={'class': 'form-control'}),
+        }
 
 class UploadForm(forms.Form):
     jenis_berkas = forms.ChoiceField(choices=JENIS_BERKAS_CHOICES)

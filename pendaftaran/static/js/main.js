@@ -37,6 +37,33 @@ document.getElementById('editDataForm').addEventListener('submit', function (eve
     .catch(error => console.error('Error:', error));
 });
 
+document.getElementById('uploadBerkasForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const form = this;
+    const url = "{% url 'pendaftaran:upload_berkas' %}"; // Pastikan URL sesuai
+    const formData = new FormData(form);
+
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('uploadBerkasModal'));
+            modal.hide();  // Tutup modal
+            location.reload();  // Reload halaman untuk melihat perubahan
+        } else {
+            alert('Gagal mengupload berkas. Periksa input Anda.');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
 document.getElementById('loginBtn').addEventListener('click', function (e) {
     const npmInput = document.getElementById('npm');
     const passwordInput = document.getElementById('password');

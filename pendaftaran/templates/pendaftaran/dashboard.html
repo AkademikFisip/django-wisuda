@@ -28,7 +28,7 @@
         <hr>
 
         <div class="row mt-4">
-        <!-- Modal -->
+        <!-- Modal Informasi Mahasiswa-->
         <div class="modal fade" id="editDataModal" tabindex="-1" aria-labelledby="editDataModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -41,6 +41,25 @@
                             {% csrf_token %}
                             {{ pendaftar_form.as_p }}
                             <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Upload Daftar Berkas yang Harus Diupload --> 
+        <div class="modal fade" id="uploadBerkasModal" tabindex="-1" aria-labelledby="uploadBerkasModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadBerkasModalLabel">Upload Berkas</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" enctype="multipart/form-data" id="uploadBerkasForm">
+                            {% csrf_token %}
+                            {{ upload_berkas_form.as_p }} <!-- Pastikan ini adalah form upload berkas -->
+                            <button type="submit" class="btn btn-primary">Upload</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                         </form>
                     </div>
@@ -89,32 +108,7 @@
                         </div>
                     </div>
                 </div>                                             
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-success text-white">Upload Berkas</div>
-                    <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <div class="mb-3">
-                                <label for="jenis_berkas" class="form-label">Jenis Berkas</label>
-                                <select name="jenis_berkas" id="jenis_berkas" class="form-select">
-                                    {% for choice in form.jenis_berkas.field.choices %}
-                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="file" class="form-label">File</label>
-                                <input type="file" name="file" id="file" class="form-control">
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Upload</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+            </div>   
         <div class="row mt-4">
             <div class="col-md-12">
                 <div class="card">
@@ -125,6 +119,9 @@
                                 <li class="list-group-item">{{ jenis.1 }}</li>
                             {% endfor %}
                         </ul>
+                        <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#uploadBerkasModal">
+                            Upload Berkas
+                        </a>                        
                     </div>
                 </div>
             </div>

@@ -59,12 +59,14 @@ class Pendaftar(models.Model):
 
 
 class Berkas(models.Model):
-    jenis_berkas = models.CharField(max_length=100, choices=JENIS_BERKAS_CHOICES)
-    file = models.FileField(
-        upload_to='berkas/',
-        validators=[validate_file_extension, validate_file_size]
-    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    jenis_berkas = models.CharField(max_length=50, choices=JENIS_BERKAS_CHOICES)
+    file = models.FileField(upload_to='berkas/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.jenis_berkas}"
+
     
 class Mahasiswa(models.Model):
     nama_lengkap = models.CharField(max_length=100)
