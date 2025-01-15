@@ -197,3 +197,67 @@ console.log("File Name: ", file.name);
 console.log("File Type: ", file.type);
 console.log("Preview Element: ", previewElement);
 
+// Validasi form edit data
+document.getElementById('editDataForm').addEventListener('submit', function (event) {
+    const inputs = this.querySelectorAll('input, select');
+    let valid = true;
+
+    inputs.forEach(input => {
+        if (!input.value.trim()) {
+            valid = false;
+            input.classList.add('is-invalid');
+        } else {
+            input.classList.remove('is-invalid');
+        }
+    });
+
+    if (!valid) {
+        event.preventDefault();
+        alert('Harap isi semua field!');
+    }
+});
+
+// Validasi form upload berkas
+document.getElementById('uploadBerkasForm').addEventListener('submit', function (event) {
+    const fileInput = this.querySelector('input[type="file"]');
+    if (!fileInput.value) {
+        event.preventDefault();
+        alert('Harap pilih file sebelum mengunggah!');
+    }
+});
+
+// Tambahkan loading ke tombol edit data
+document.getElementById('editDataForm').addEventListener('submit', function (event) {
+    const button = document.getElementById('editDataSubmit');
+    button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menyimpan...';
+    button.disabled = true;
+});
+
+// Tambahkan loading ke tombol upload berkas
+document.getElementById('uploadBerkasForm').addEventListener('submit', function (event) {
+    const button = document.getElementById('uploadBerkasSubmit');
+    button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Mengunggah...';
+    button.disabled = true;
+});
+
+// Bagian Script
+document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+
+
+function setJenisBerkas(jenisBerkas) {
+    const jenisBerkasInput = document.getElementById('jenis-berkas-input');
+    if (jenisBerkasInput) {
+        jenisBerkasInput.value = jenisBerkas;
+    }
+}
+
+document.querySelector('#uploadBerkasForm').addEventListener('submit', function(e) {
+    const progressBar = document.querySelector('#progress-bar');
+    progressBar.style.width = '100%';
+    progressBar.innerText = 'Mengupload...';
+});

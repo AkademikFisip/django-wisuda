@@ -15,6 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Pendaftaran - Sistem Pendaftaran Wisuda</title>
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'css/register.css' %}">
     <script defer src="{% static 'js/main.js' %}"></script>
 </head>
@@ -52,33 +53,11 @@
             </form>
         </div>
     </main>
-        <!-- Script -->
-        <script>
-            function showPopup(message) {
-                const popup = document.getElementById('popup-message');
-                const popupText = document.getElementById('popup-text');
-                popupText.textContent = message; // Masukkan pesan ke popup
-                popup.classList.remove('hidden'); // Tampilkan popup
-            }
-    
-            function closePopup() {
-                const popup = document.getElementById('popup-message');
-                popup.classList.add('hidden'); // Sembunyikan popup
-            }
-    
-            document.addEventListener('DOMContentLoaded', () => {
-                console.log('DOM Loaded');
-                {% if messages %}
-                    console.log('Messages found:', {{ messages|safe }});
-                    {% for message in messages %}
-                        console.log('Showing message:', "{{ message|escapejs|safe }}");
-                        showPopup("{{ message|escapejs|safe }}");
-                    {% endfor %}
-                {% else %}
-                    console.log('No messages found');
-                {% endif %}
-            });
-        </script>
+    <!-- Bagian Template Messages -->
+    {% if messages %}
+        <div id="django-messages" data-messages="{% for message in messages %}{{ message|escapejs }}{% if not forloop.last %},{% endif %}{% endfor %}"></div>
+    {% endif %}
+
     <footer class="footer">
         <p>&copy; 2025 Universitas Lampung - Fakultas Ilmu Sosial dan Ilmu Politik</p>
     </footer>

@@ -4,13 +4,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import HttpResponseBadRequest, JsonResponse
-from .forms import UploadBerkasForm, PendaftaranForm, PendaftarForm
-from .models import Berkas, Pendaftar
+from .forms import UploadBerkasForm, PendaftarForm, MahasiswaForm
+from .models import Berkas, Pendaftar, Mahasiswa
 from .choices import JENIS_BERKAS_CHOICES
 
 def home(request):
     if request.method == 'POST':
-        form = PendaftaranForm(request.POST)
+        form = PendaftarForm(request.POST)
         if form.is_valid():
             form.save()
             return render(request, 'pendaftaran/terima_kasih.html')
@@ -18,7 +18,7 @@ def home(request):
             # Render ulang dengan data error yang sudah ada
             return render(request, 'pendaftaran/home.html', {'form': form})
     else:
-        form = PendaftaranForm()
+        form = PendaftarForm()
         return render(request, 'pendaftaran/home.html', {'form': form})
     
 def register(request):
@@ -71,49 +71,75 @@ def login_view(request):
 @login_required
 def dashboard(request):
     mahasiswa = Pendaftar.objects.filter(user=request.user).first()
-    pendaftar_form = PendaftarForm(instance=mahasiswa)
-    upload_berkas_form = UploadBerkasForm()  # Form untuk upload berkas
+    berkas_terupload = {
+        jenis[0]: mahasiswa.berkas_set.filter(jenis_berkas=jenis[0]).first() if mahasiswa else None
+        for jenis in JENIS_BERKAS_CHOICES
+    }
+
+    berkas_list = [
+        {
+            "jenis": jenis[0],
+            "nama": jenis[1],
+            "file_url": berkas_terupload[jenis[0]].file.url if berkas_terupload[jenis[0]] else None,
+        }
+        for jenis in JENIS_BERKAS_CHOICES
+    ]
 
     context = {
         'mahasiswa': mahasiswa,
-        'pendaftar_form': pendaftar_form,
-        'upload_berkas_form': upload_berkas_form,  # Tambahkan form upload berkas
-        'JENIS_BERKAS_CHOICES': JENIS_BERKAS_CHOICES,
+        'pendaftar_form': PendaftarForm(instance=mahasiswa),
+        'upload_berkas_form': UploadBerkasForm(),
+        'berkas_list': berkas_list,
     }
     return render(request, 'pendaftaran/dashboard.html', context)
+
+@login_required
+def edit_data_mahasiswa(request):
+    mahasiswa = Mahasiswa.objects.filter(user=request.user).first()
+    if request.method == 'POST':
+        form = MahasiswaForm(request.POST, instance=mahasiswa)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = MahasiswaForm(instance=mahasiswa)
+    return render(request, 'pendaftaran/edit_data_mahasiswa.html', {'form': form})
 
 @login_required
 def upload_berkas(request):
     if request.method == 'POST':
         form = UploadBerkasForm(request.POST, request.FILES)
         if form.is_valid():
-            upload = form.save(commit=False)
-            upload.user = request.user
-            upload.save()
-            return JsonResponse({'success': True})
+            jenis_berkas = request.POST.get('jenis_berkas')
+            berkas = form.save(commit=False)
+            berkas.user = request.user
+            berkas.jenis_berkas = jenis_berkas
+            berkas.save()
+            messages.success(request, "Berkas berhasil diunggah.")
         else:
-            return JsonResponse({'success': False, 'errors': form.errors})
-    return JsonResponse({'success': False, 'error': 'Invalid request'})
+            messages.error(request, "Gagal mengunggah berkas.")
+        return redirect('pendaftaran:dashboard')
 
-@login_required
-def edit_data_mahasiswa(request):
-    mahasiswa = Pendaftar.objects.filter(user=request.user).first()
-    
-    if not mahasiswa:
-        mahasiswa = Pendaftar(user=request.user)  # Buat instance baru jika belum ada
-
+def update_data(request):
     if request.method == 'POST':
-        form = PendaftarForm(request.POST, instance=mahasiswa)
+        mahasiswa = Mahasiswa.objects.get(user=request.user)
+        form = MahasiswaForm(request.POST, instance=mahasiswa)
         if form.is_valid():
             form.save()
-            return JsonResponse({'success': True})
-        else:
-            return JsonResponse({'success': False, 'errors': form.errors})
+            return redirect('dashboard')
     else:
-        form = PendaftarForm(instance=mahasiswa)
+        form = MahasiswaForm(instance=request.user.mahasiswa)
+    return render(request, 'update_data.html', {'form': form})
 
-    return render(request, 'pendaftaran/edit_data_mahasiswa.html', {'form': form})
+def edit_data_mahasiswa(request):
+    # Logika untuk mengedit data mahasiswa
+    return render(request, 'pendaftaran/edit_data_mahasiswa.html')
 
 def logout_view(request):
     logout(request)
     return redirect('pendaftaran/login.html')
+
+def validate_jenis_berkas(jenis):
+    valid_choices = [choice[0] for choice in JENIS_BERKAS_CHOICES]
+    if jenis not in valid_choices:
+        raise ValueError("Jenis berkas tidak valid.")
